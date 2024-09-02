@@ -21,7 +21,7 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "MoustafaElshafei\\ConvertDateToHijri\\": "src/"
+            "Elshafei\\LaravelHijriDate\\": "src/"
         }
     },
     "repositories": [
@@ -33,7 +33,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "MoustafaElshafei\\ConvertDateToHijri\\ConvertDateToHijriServiceProvider"
+                "Elshafei\\LaravelHijriDate\\LaravelHijriDateServiceProvider"
             ]
         }
     },
