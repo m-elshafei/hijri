@@ -16,7 +16,7 @@
         "convert-date-to-hijri",
         "artisan"
     ],
-    "homepage": "https://github.com/m-elshafei/hijri-date",
+    "homepage": "https://github.com/m-elshafei/hijri",
     "minimum-stability": "dev",
     "prefer-stable": true,
     "autoload": {
@@ -27,7 +27,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/m-elshafei/hijri-date"
+            "url": "https://github.com/m-elshafei/hijri"
         }
     ],
     "extra": {
