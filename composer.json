@@ -18,6 +18,7 @@
     ],
     "homepage": "https://github.com/m-elshafei/hijri-date",
     "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "MoustafaElshafei\\ConvertDateToHijri\\": "src/"
