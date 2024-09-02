@@ -1,6 +1,6 @@
 <?php
 
-namespace Alkoumi\LaravelHijriDate;
+namespace Elshafei\LaravelHijriDate;
 
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Alkoumi\LaravelHijriDate;
+namespace Elshafei\LaravelHijriDate;
 
 class Hijri
 {
