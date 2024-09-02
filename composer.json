@@ -1,5 +1,5 @@
 {
-    "name": "m-elshafei/hijri-date",
+    "name": "elshafei/HijriDate",
     "description": "Laravel package to convert Gregorian dates to Hijri dates",
     "license": "MIT",
     "authors": [
@@ -33,7 +33,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Elshafei\\LaravelHijriDate\\LaravelHijriDateServiceProvider"
+                "elshafei\\HijriDate\\LaravelHijriDateServiceProvider"
             ]
         }
     },
