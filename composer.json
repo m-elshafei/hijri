@@ -25,9 +25,17 @@
         }
     },
     "require": {
+        "m-elshafei/hijri-date": "dev-master",
         "php": "^7.1|^8.0|^8.1|^8.2|^8.3",
         "illuminate/support": "^5.7|^6.0|^7.0|^8.0|^9.0|^10.0|^11.0"
     },
+    "repositories": [
+    {
+        "type": "vcs",
+        "url": "https://github.com/m-elshafei/hijri-date"
+    }
+    ]
+
     "extra": {
         "laravel": {
             "providers": [
