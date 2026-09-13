@@ -72,7 +72,7 @@ final class ArabicAmountInWords
             } else {
                 $ones = $value % 10;
                 $tens = $value - $ones;
-                $result = ($ones > 0 ? ($words[(string) $ones] ?? '').' و' : '').($words[(string) $tens] ?? '');
+                $result = ($ones > 0 ? $words[(string) $ones].' و' : '').($words[(string) $tens] ?? '');
             }
         } else {
             $hundreds = (int) floor($value / 100) * 100;

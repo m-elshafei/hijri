@@ -4,12 +4,26 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property-read ValuationRequest|null $valuationRequest
+ * @property-read PropertyLocation|null $location
+ * @property-read PropertyTotal|null $total
+ * @property-read Collection<int, PropertyComparable> $comparables
+ * @property-read Collection<int, PropertyAdjustment> $adjustments
+ * @property-read Collection<int, PropertyComponent> $components
+ * @property-read Collection<int, PropertyPicture> $pictures
+ * @property-read Collection<int, PropertyBorder> $borders
+ * @property-read Collection<int, PropertyLand> $lands
+ * @property-read Collection<int, PropertyFacade> $facades
+ * @property-read Collection<int, PropertyService> $services
+ */
 class Property extends Model
 {
     use SoftDeletes;
@@ -97,56 +111,89 @@ class Property extends Model
         ];
     }
 
+    /**
+     * @return BelongsTo<ValuationRequest, $this>
+     */
     public function valuationRequest(): BelongsTo
     {
         return $this->belongsTo(ValuationRequest::class);
     }
 
+    /**
+     * @return HasOne<PropertyLocation, $this>
+     */
     public function location(): HasOne
     {
         return $this->hasOne(PropertyLocation::class);
     }
 
+    /**
+     * @return HasMany<PropertyComparable, $this>
+     */
     public function comparables(): HasMany
     {
         return $this->hasMany(PropertyComparable::class);
     }
 
+    /**
+     * @return HasMany<PropertyAdjustment, $this>
+     */
     public function adjustments(): HasMany
     {
         return $this->hasMany(PropertyAdjustment::class);
     }
 
+    /**
+     * @return HasMany<PropertyComponent, $this>
+     */
     public function components(): HasMany
     {
         return $this->hasMany(PropertyComponent::class);
     }
 
+    /**
+     * @return HasMany<PropertyPicture, $this>
+     */
     public function pictures(): HasMany
     {
         return $this->hasMany(PropertyPicture::class);
     }
 
+    /**
+     * @return HasMany<PropertyBorder, $this>
+     */
     public function borders(): HasMany
     {
         return $this->hasMany(PropertyBorder::class);
     }
 
+    /**
+     * @return HasMany<PropertyLand, $this>
+     */
     public function lands(): HasMany
     {
         return $this->hasMany(PropertyLand::class);
     }
 
+    /**
+     * @return HasMany<PropertyFacade, $this>
+     */
     public function facades(): HasMany
     {
         return $this->hasMany(PropertyFacade::class);
     }
 
+    /**
+     * @return HasMany<PropertyService, $this>
+     */
     public function services(): HasMany
     {
         return $this->hasMany(PropertyService::class);
     }
 
+    /**
+     * @return HasOne<PropertyTotal, $this>
+     */
     public function total(): HasOne
     {
         return $this->hasOne(PropertyTotal::class);

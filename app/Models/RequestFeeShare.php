@@ -7,6 +7,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property-read ValuationRequest|null $valuationRequest
+ */
 class RequestFeeShare extends Model
 {
     protected $fillable = [
@@ -31,6 +34,9 @@ class RequestFeeShare extends Model
         ];
     }
 
+    /**
+     * @return BelongsTo<ValuationRequest, $this>
+     */
     public function valuationRequest(): BelongsTo
     {
         return $this->belongsTo(ValuationRequest::class);

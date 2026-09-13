@@ -30,7 +30,7 @@ final class ResolveValuationFinalAmountAction
     {
         $total = match (true) {
             $source instanceof PropertyTotal => $source,
-            $source instanceof Property => $source->total ?? $source->total()->first(),
+            $source instanceof Property => $source->total,
             default => $source->property?->total,
         };
 

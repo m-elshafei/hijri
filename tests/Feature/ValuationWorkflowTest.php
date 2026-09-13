@@ -11,7 +11,6 @@ use App\Actions\Valuation\SendValuationRequestAction;
 use App\Actions\Valuation\UnapproveValuationRequestAction;
 use App\Enums\UserStatus;
 use App\Models\User;
-use App\Models\ValuationRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Cache;
 use Spatie\Permission\Models\Permission;

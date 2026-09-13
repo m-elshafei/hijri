@@ -7,6 +7,4 @@ namespace App\Http\Controllers;
 /**
  * Backward-compatible alias after Phase 4 move to Web\.
  */
-class LanguageController extends Web\LanguageController
-{
-}
+class LanguageController extends Web\LanguageController {}

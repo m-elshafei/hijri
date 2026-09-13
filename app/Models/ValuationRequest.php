@@ -5,12 +5,28 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\Valuation\RequestState;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
+/**
+ * @property Carbon|null $started_at
+ * @property Carbon|null $under_evaluation_at
+ * @property Carbon|null $evaluated_at
+ * @property Carbon|null $ended_at
+ * @property Carbon|null $qima_locked_at
+ * @property-read Property|null $property
+ * @property-read Company|null $company
+ * @property-read User|null $coordinator
+ * @property-read User|null $evaluator
+ * @property-read Collection<int, RequestFeeShare> $feeShares
+ * @property-read Collection<int, Contract> $contracts
+ * @property-read Collection<int, Offer> $offers
+ */
 class ValuationRequest extends Model
 {
     use SoftDeletes;
@@ -69,36 +85,57 @@ class ValuationRequest extends Model
         ];
     }
 
+    /**
+     * @return BelongsTo<Company, $this>
+     */
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
     }
 
+    /**
+     * @return HasOne<Property, $this>
+     */
     public function property(): HasOne
     {
         return $this->hasOne(Property::class);
     }
 
+    /**
+     * @return HasMany<RequestFeeShare, $this>
+     */
     public function feeShares(): HasMany
     {
         return $this->hasMany(RequestFeeShare::class);
     }
 
+    /**
+     * @return HasMany<Contract, $this>
+     */
     public function contracts(): HasMany
     {
         return $this->hasMany(Contract::class);
     }
 
+    /**
+     * @return HasMany<Offer, $this>
+     */
     public function offers(): HasMany
     {
         return $this->hasMany(Offer::class);
     }
 
+    /**
+     * @return BelongsTo<User, $this>
+     */
     public function coordinator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'coordinator_user_id');
     }
 
+    /**
+     * @return BelongsTo<User, $this>
+     */
     public function evaluator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'evaluator_user_id');
@@ -122,4 +159,3 @@ class ValuationRequest extends Model
         return RequestState::labelFor($this->state);
     }
 }
-

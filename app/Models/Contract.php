@@ -10,6 +10,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
+/**
+ * @property-read Contractor|null $contractor
+ * @property-read ValuationRequest|null $valuationRequest
+ */
 class Contract extends Model
 {
     use LogsActivity;
@@ -52,11 +56,17 @@ class Contract extends Model
             ->logOnly(['state', 'contractor_id', 'valuation_request_id']);
     }
 
+    /**
+     * @return BelongsTo<Contractor, $this>
+     */
     public function contractor(): BelongsTo
     {
         return $this->belongsTo(Contractor::class);
     }
 
+    /**
+     * @return BelongsTo<ValuationRequest, $this>
+     */
     public function valuationRequest(): BelongsTo
     {
         return $this->belongsTo(ValuationRequest::class);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\LegacyImport;
 
+use App\Models\ImportRun;
 use App\Models\Property;
 use App\Models\ValuationRequest;
 use App\Services\LegacyImport\Concerns\ResolvesImportedEntities;
@@ -21,7 +22,7 @@ final class PropertiesImporter extends ResumableImporter
     private array $linkStats = ['certain' => 0, 'ambiguous' => 0, 'orphan' => 0];
 
     public function __construct(
-        \App\Models\ImportRun $run,
+        ImportRun $run,
         bool $dryRun = false,
         bool $resume = false,
         private readonly ?RequestPropertyLinker $linker = null,
@@ -121,10 +122,6 @@ final class PropertiesImporter extends ResumableImporter
             ValuationRequest::query()->where('id', $valuationRequestId)->update([
                 'deposit_number' => $requestDeposit,
             ]);
-            // Merge REI deposit onto request only when request had none — never invent.
-            if ($requestDeposit === null && $reiDeposit !== null) {
-                // unreachable due to condition; kept for clarity of merge rules
-            }
         }
 
         if ($valuationRequestId !== null && $requestDeposit === null && $reiDeposit !== null && ! $this->dryRun) {

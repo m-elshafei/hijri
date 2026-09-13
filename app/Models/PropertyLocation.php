@@ -7,6 +7,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property-read Property|null $property
+ * @property-read GeoCity|null $city
+ * @property-read GeoNeighborhood|null $neighborhood
+ */
 class PropertyLocation extends Model
 {
     protected $fillable = [
@@ -36,16 +41,25 @@ class PropertyLocation extends Model
         ];
     }
 
+    /**
+     * @return BelongsTo<Property, $this>
+     */
     public function property(): BelongsTo
     {
         return $this->belongsTo(Property::class);
     }
 
+    /**
+     * @return BelongsTo<GeoCity, $this>
+     */
     public function city(): BelongsTo
     {
         return $this->belongsTo(GeoCity::class, 'city_id');
     }
 
+    /**
+     * @return BelongsTo<GeoNeighborhood, $this>
+     */
     public function neighborhood(): BelongsTo
     {
         return $this->belongsTo(GeoNeighborhood::class, 'neighborhood_id');

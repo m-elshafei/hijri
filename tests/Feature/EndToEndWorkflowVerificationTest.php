@@ -7,12 +7,12 @@ use App\Enums\Commercial\OfferEstateStatus;
 use App\Enums\Commercial\PartyContactOwnerType;
 use App\Enums\Commercial\PartyContactStatus;
 use App\Enums\UserStatus;
+use App\Models\Contract;
 use App\Models\Contractor;
 use App\Models\Offer;
 use App\Models\OfferEstate;
 use App\Models\Partner;
 use App\Models\PartyContact;
-use App\Models\Property;
 use App\Models\PropertyTotal;
 use App\Models\User;
 use App\Models\ValuationRequest;
@@ -331,11 +331,11 @@ it('runs commercial create/pay flows with persistence', function () {
         'approve' => 1,
     ]);
 
-    $contract = \App\Models\Contract::query()->create([
+    $contract = Contract::query()->create([
         'legacy_id' => 960099,
         'contractor_id' => $contractor->id,
         'valuation_request_id' => $valuation->id,
-        'state' => \App\Models\Contract::STATE_UNPAID,
+        'state' => Contract::STATE_UNPAID,
     ]);
 
     $this->actingAs($manager)

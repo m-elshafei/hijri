@@ -6,6 +6,7 @@ namespace App\Services\LegacyImport;
 
 use App\Enums\Commercial\OfferEstatePaymentStatus;
 use App\Enums\Commercial\OfferEstateStatus;
+use App\Models\ImportRun;
 use App\Models\Offer;
 use App\Models\OfferEstate;
 use App\Services\LegacyImport\Concerns\ResumableImporter;
@@ -18,7 +19,7 @@ final class OfferEstatesImporter extends ResumableImporter
     private array $offerMap = [];
 
     public function __construct(
-        \App\Models\ImportRun $run,
+        ImportRun $run,
         bool $dryRun = false,
         bool $resume = false,
     ) {

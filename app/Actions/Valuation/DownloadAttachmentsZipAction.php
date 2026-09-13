@@ -25,7 +25,8 @@ final class DownloadAttachmentsZipAction
         Gate::forUser($actor)->authorize('downloadAttachments', $request);
 
         $request->loadMissing('property.pictures');
-        $pictures = $request->property?->pictures ?? collect();
+        $property = $request->property;
+        $pictures = $property === null ? collect() : $property->pictures;
 
         if ($pictures->isEmpty()) {
             throw new RuntimeException(__('No attachments available for download.'));

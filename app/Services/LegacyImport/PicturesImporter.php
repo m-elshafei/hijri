@@ -87,7 +87,7 @@ final class PicturesImporter extends ResumableImporter
             'relative_path' => null,
         ]);
 
-        if ($picture !== null && $this->hasSearchPaths) {
+        if ($picture instanceof PropertyPicture && $this->hasSearchPaths) {
             $this->pendingVerifyIds[] = (int) $picture->id;
             if (count($this->pendingVerifyIds) >= $this->chunkSize) {
                 $this->flushVerifyJobs();

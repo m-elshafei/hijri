@@ -7,6 +7,7 @@ namespace App\Services\LegacyImport;
 use App\Enums\Commercial\PartyContactOwnerType;
 use App\Enums\Commercial\PartyContactStatus;
 use App\Models\Contractor;
+use App\Models\ImportRun;
 use App\Models\Partner;
 use App\Models\PartyContact;
 use App\Services\LegacyImport\Concerns\ResumableImporter;
@@ -25,7 +26,7 @@ final class PartyContactsImporter extends ResumableImporter
     private array $contractorMap = [];
 
     public function __construct(
-        \App\Models\ImportRun $run,
+        ImportRun $run,
         bool $dryRun = false,
         bool $resume = false,
     ) {

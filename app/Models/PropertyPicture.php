@@ -7,6 +7,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property-read Property|null $property
+ */
 class PropertyPicture extends Model
 {
     protected $fillable = [
@@ -34,6 +37,9 @@ class PropertyPicture extends Model
         ];
     }
 
+    /**
+     * @return BelongsTo<Property, $this>
+     */
     public function property(): BelongsTo
     {
         return $this->belongsTo(Property::class);

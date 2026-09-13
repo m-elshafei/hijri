@@ -2,11 +2,21 @@
 
 declare(strict_types=1);
 
+use App\Enums\Commercial\OfferEstatePaymentStatus;
+use App\Enums\Commercial\OfferEstateStatus;
+use App\Enums\Commercial\PartyContactOwnerType;
+use App\Enums\Commercial\PartyContactStatus;
 use App\Enums\UserStatus;
+use App\Models\Contractor;
+use App\Models\Offer;
+use App\Models\OfferEstate;
+use App\Models\Partner;
+use App\Models\PartyContact;
 use App\Models\Property;
 use App\Models\PropertyTotal;
 use App\Models\User;
 use App\Models\ValuationRequest;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -182,19 +192,19 @@ it('loads commercial list screens for manager without error', function () {
 it('shows offer estates and party contacts on detail screens', function () {
     $manager = makeRoleUser('manager');
 
-    $partner = \App\Models\Partner::query()->create([
+    $partner = Partner::query()->create([
         'legacy_id' => 940001,
         'name' => 'Partner Smoke',
         'state' => 1,
     ]);
 
-    $contractor = \App\Models\Contractor::query()->create([
+    $contractor = Contractor::query()->create([
         'legacy_id' => 940001,
         'name' => 'Contractor Smoke',
         'state' => 1,
     ]);
 
-    $offer = \App\Models\Offer::query()->create([
+    $offer = Offer::query()->create([
         'legacy_id' => 940001,
         'number' => 'O-940001',
         'partner_id' => $partner->id,
@@ -202,30 +212,30 @@ it('shows offer estates and party contacts on detail screens', function () {
         'state' => 1,
     ]);
 
-    \App\Models\OfferEstate::query()->create([
+    OfferEstate::query()->create([
         'legacy_id' => 940001,
         'offer_id' => $offer->id,
         'estate_type' => 'Villa Smoke',
-        'payment_status' => \App\Enums\Commercial\OfferEstatePaymentStatus::Unpaid,
-        'status' => \App\Enums\Commercial\OfferEstateStatus::Active,
+        'payment_status' => OfferEstatePaymentStatus::Unpaid,
+        'status' => OfferEstateStatus::Active,
     ]);
 
-    \App\Models\PartyContact::query()->create([
+    PartyContact::query()->create([
         'legacy_id' => 940001,
-        'owner_type' => \App\Enums\Commercial\PartyContactOwnerType::Partner,
+        'owner_type' => PartyContactOwnerType::Partner,
         'partner_id' => $partner->id,
         'name' => 'Partner Contact',
         'email' => 'partner@example.com',
-        'status' => \App\Enums\Commercial\PartyContactStatus::Active,
+        'status' => PartyContactStatus::Active,
     ]);
 
-    \App\Models\PartyContact::query()->create([
+    PartyContact::query()->create([
         'legacy_id' => 940002,
-        'owner_type' => \App\Enums\Commercial\PartyContactOwnerType::Contractor,
+        'owner_type' => PartyContactOwnerType::Contractor,
         'contractor_id' => $contractor->id,
         'name' => 'Contractor Contact',
         'email' => 'contractor@example.com',
-        'status' => \App\Enums\Commercial\PartyContactStatus::Active,
+        'status' => PartyContactStatus::Active,
     ]);
 
     $this->actingAs($manager)
@@ -246,14 +256,14 @@ it('shows offer estates and party contacts on detail screens', function () {
 it('does not lazy-load on the main valuation list', function () {
     ['manager' => $manager, 'request' => $request] = makeValuationForRoles();
 
-    \Illuminate\Database\Eloquent\Model::preventLazyLoading();
+    Model::preventLazyLoading();
 
     try {
         $this->actingAs($manager)
             ->get(route('dashboard.valuation-requests.index'))
             ->assertOk();
     } finally {
-        \Illuminate\Database\Eloquent\Model::preventLazyLoading(false);
+        Model::preventLazyLoading(false);
     }
 
     expect($request->id)->toBeGreaterThan(0);

@@ -21,8 +21,22 @@ final class ComputeComponentValuationTotalAction
         }
         $map = $property->components->keyBy('component_key');
 
-        $area = static fn (string $key): float => (float) ($map->get($key)?->area_value ?? 0);
-        $price = static fn (string $key): float => (float) ($map->get($key)?->price_value ?? 0);
+        $area = static function (string $key) use ($map): float {
+            $component = $map->get($key);
+            if ($component === null) {
+                return 0.0;
+            }
+
+            return (float) ($component->area_value ?? 0);
+        };
+        $price = static function (string $key) use ($map): float {
+            $component = $map->get($key);
+            if ($component === null) {
+                return 0.0;
+            }
+
+            return (float) ($component->price_value ?? 0);
+        };
 
         $kind = (string) ($property->property_kind ?? '');
         $type = (string) ($property->property_type ?? '');

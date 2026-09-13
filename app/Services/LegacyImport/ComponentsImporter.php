@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Services\LegacyImport;
 
+use App\Models\ImportRun;
 use App\Models\Property;
-use App\Models\PropertyComponent;
 use App\Services\LegacyImport\Concerns\ResumableImporter;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
@@ -86,7 +86,7 @@ final class ComponentsImporter extends ResumableImporter
     private array $buffer = [];
 
     public function __construct(
-        \App\Models\ImportRun $run,
+        ImportRun $run,
         bool $dryRun = false,
         bool $resume = false,
     ) {

@@ -35,7 +35,7 @@ final class NeighborhoodsImporter extends ResumableImporter
             : null;
 
         if ($cityId === null) {
-            $this->quarantine(static::key(), (int) $row->idNeighborhood, (array) $row, 'city_not_imported');
+            $this->quarantine(self::key(), (int) $row->idNeighborhood, (array) $row, 'city_not_imported');
 
             return;
         }

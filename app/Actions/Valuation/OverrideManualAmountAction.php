@@ -35,11 +35,14 @@ final class OverrideManualAmountAction
         $previous = $property->total?->total_amount_manual;
 
         $total = DB::transaction(function () use ($property, $manualAmount, $hideComparisons, $hideEvaluation): PropertyTotal {
+            $existingTotal = $property->total;
+            $existingLegacyId = $existingTotal !== null ? $existingTotal->legacy_id : null;
+
             /** @var PropertyTotal $total */
             $total = PropertyTotal::query()->updateOrCreate(
                 ['property_id' => $property->id],
                 [
-                    'legacy_id' => $property->total?->legacy_id ?? (900000000 + $property->id),
+                    'legacy_id' => $existingLegacyId ?? (900000000 + $property->id),
                     'total_amount_manual' => $manualAmount,
                     'hide_comparisons_info_table' => $hideComparisons,
                     'hide_evaluation_info_table' => $hideEvaluation,

@@ -49,9 +49,11 @@ use App\Models\User;
 use App\Models\ValuationRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\View\View;
 use InvalidArgumentException;
 use RuntimeException;
+use Spatie\Permission\Exceptions\RoleDoesNotExist;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ValuationRequestController extends Controller
@@ -500,7 +502,7 @@ class ValuationRequestController extends Controller
     }
 
     /**
-     * @return \Illuminate\Support\Collection<int|string, string>
+     * @return Collection<int|string, string>
      */
     private function usersForRole(string $role)
     {
@@ -509,7 +511,7 @@ class ValuationRequestController extends Controller
                 ->role($role)
                 ->orderBy('name')
                 ->pluck('name', 'id');
-        } catch (\Spatie\Permission\Exceptions\RoleDoesNotExist) {
+        } catch (RoleDoesNotExist) {
             return collect();
         }
     }
