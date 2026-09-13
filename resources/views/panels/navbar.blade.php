@@ -59,6 +59,21 @@
     @include('panels/navbar-partials/dropdown-bookmark-apps')
     @include('panels/navbar-partials/dropdown-dark-mood')
     <x-current-system-release></x-current-system-release>
+    @auth
+      @can('viewAny', App\Models\ValuationRequest::class)
+        <form method="get" action="{{ route('dashboard.valuation-requests.quick-search') }}" class="d-none d-md-flex align-items-center ms-1" style="min-width: 260px;">
+          <input
+            type="text"
+            name="q"
+            class="form-control form-control-sm"
+            placeholder="{{ __('Quick search by valuation number') }}"
+            value="{{ request('q') }}"
+            autocomplete="off"
+          >
+          <button class="btn btn-sm btn-outline-primary ms-50 text-nowrap" type="submit">{{ __('Quick search') }}</button>
+        </form>
+      @endcan
+    @endauth
   </div>
   <ul class="nav navbar-nav align-items-center ms-auto">
     @include('panels/navbar-partials/dropdown-notification')

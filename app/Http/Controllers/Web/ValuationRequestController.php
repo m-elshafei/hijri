@@ -448,8 +448,8 @@ class ValuationRequestController extends Controller
         $action->execute(
             $httpRequest->user(),
             $valuationRequest,
-            $data['property_kind'],
-            $data['property_type']
+            $data['property_type'],
+            $data['property_kind']
         );
 
         return back()->with('success', __('Property type changed.'));
